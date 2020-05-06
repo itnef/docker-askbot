@@ -4,6 +4,10 @@ Docker for askbot supporting volume for persisted data, easily overridable setti
 - Uses a /data docker volume for settings overriding and storing a sqlite data file
 - Can easily customize install by overriding settings
 
+## Note
+
+This is an incomplete attempt to make the original https://github.com/berdon/docker-askbot work with a current OS, development branch 0.11 and python3
+
 ## Quick Start
 
 ```bash
@@ -12,6 +16,10 @@ docker run -d -p 8080:80 --name nginx-proxy -p 4443:443 -v /var/run/docker.sock:
 
 # Launch askbot
 docker run -e VIRTUAL_HOST=www.my-sweet-askbot-site.com -v /askbot:/data/ -d berdon/docker-askbot:latest
+```
+
+```
+docker run -p 80:1080 -v /askbot:/data/ -a stdout -a stderr -- askbot
 ```
 
 ## Customing Askbot

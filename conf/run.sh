@@ -1,6 +1,8 @@
 #!/bin/bash
 
-cd /app
+cd /app/askbot_app
+
+export PYTHONPATH=/app/askbot_app:$PYTHONPATH
 
 if [ ! -d /data/contrib ]; then
   mkdir /data/contrib;
@@ -22,10 +24,14 @@ if [ ! -d /data/override ]; then
   touch /data/override/settingsoverride.py;
 fi
 
-python manage.py collectstatic --noinput
-python manage.py syncdb --noinput
-python manage.py makemigrations --noinput
-python manage.py migrate --noinput
+ls -laR /app
+
+cd /app
+
+python3 manage.py collectstatic --noinput
+# python3 manage.py syncdb --noinput
+python3 manage.py makemigrations --noinput
+python3 manage.py migrate --noinput
 
 # Run via debugging server
-exec /usr/local/bin/uwsgi /app/uwsgi.ini
+exec /usr/local/bin/uwsgi /app/askbot_app/uwsgi.ini
